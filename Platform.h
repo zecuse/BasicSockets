@@ -1,4 +1,12 @@
 #pragma once
+#if __cplusplus >= 201703L && __has_cpp_attribute(fallthrough)
+	#define FALLTHROUGH [[fallthrough]]
+#elif defined(__GNUC__)
+	#define FALLTHROUGH __attribute__((fallthrough))
+#else
+	#define FALLTHROUGH
+#endif
+
 #if defined(_WIN32) && !defined(__unix__)
 #define WINDOWS
 #define WIN32_LEAN_AND_MEAN
@@ -14,8 +22,10 @@ typedef SOCKET Socket;
 #define UNIX
 #include <sys/socket.h>
 #include <sys/select.h>
+#include <arpa/inet.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <getopt.h>
 
 typedef int Socket;
 #endif
