@@ -1,6 +1,8 @@
 #pragma once
-#if __cplusplus >= 201703L && __has_cpp_attribute(fallthrough)
-	#define FALLTHROUGH [[fallthrough]]
+#if __cplusplus >= 201703L && defined(__has_cpp_attribute)
+	#if __has_capp_attribute(fallthrough)
+		#define FALLTHROUGH [[fallthrough]]
+	#endif
 #elif defined(__GNUC__)
 	#define FALLTHROUGH __attribute__((fallthrough))
 #else
