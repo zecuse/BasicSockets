@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 			if (TheirSocket == -1) return 1;
 
 			// Demonstrate we're connected
-			strcpy_s(buffer, BUFSIZ, "You've connected!\n");
+			snprintf(buffer, BUFSIZ, "You've connected!\n");
 			SendMsg(TheirSocket, buffer, 0, 0, 0, 0);
 			RecvMsg(TheirSocket, buffer, 0, 0, 0, 0);
 			printf("CLIENT> %s", buffer);
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 			// Demonstrate we're connected
 			RecvMsg(MySocket, buffer, 0, reverts.type, &theiraddr, &addrlen);
 			printf("CLIENT> %s", buffer);
-			strcpy_s(buffer, BUFSIZ, "Understood.\n");
+			snprintf(buffer, BUFSIZ, "Understood.\n");
 			SendMsg(MySocket, buffer, 0, reverts.type, &theiraddr, addrlen);
 		}
 	}
@@ -70,14 +70,14 @@ int main(int argc, char *argv[])
 			// Demonstrate we're connected
 			RecvMsg(MySocket, buffer, 0, 0, 0, 0);
 			printf("SERVER> %s", buffer);
-			strcpy_s(buffer, BUFSIZ, "Understood.\n");
+			snprintf(buffer, BUFSIZ, "Understood.\n");
 			SendMsg(MySocket, buffer, 0, 0, 0, 0);
 		}
 		// UDP
 		else
 		{
 			// Demonstrate we're connected
-			strcpy_s(buffer, BUFSIZ, "I connected.\n");
+			snprintf(buffer, BUFSIZ, "I connected.\n");
 			SendMsg(MySocket, buffer, 0, reverts.type, &theiraddr, addrlen);
 			RecvMsg(MySocket, buffer, 0, reverts.type, &theiraddr, &addrlen);
 			printf("SERVER> %s", buffer);
@@ -85,6 +85,6 @@ int main(int argc, char *argv[])
 	}
 
 	if (!CloseSocket(&MySocket)) return 1;
-	WSACleanup();
+	CleanUp();
 	return 0;
 }

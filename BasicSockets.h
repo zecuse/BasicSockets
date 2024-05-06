@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct config
 {
@@ -24,7 +25,8 @@ int NameSocket(Socket *sock, struct addrinfo **addr);
 int ListenSocket(Socket *sock, int backlog);
 Socket AcceptSocket(Socket *sock, struct sockaddr_in *addr);
 int ConnectSocket(Socket *sock, struct addrinfo **addr);
-int SelectConnections(int nfds, fd_set *readset, fd_set *writeset, fd_set *exceptset, struct timeval const *timeout, Socket *sock);
+int SelectConnections(int nfds, fd_set *readset, fd_set *writeset, fd_set *exceptset, struct timeval *timeout, Socket *sock);
 int SendMsg(Socket sock, char *buffer, int flags, int type, struct sockaddr_in *to, socklen_t addrlen);
 int RecvMsg(Socket sock, char *buffer, int flags, int type, struct sockaddr_in *from, socklen_t *addrlen);
 int CloseSocket(Socket *sock);
+void CleanUp();

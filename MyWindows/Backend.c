@@ -1,4 +1,3 @@
-#include <Platform.h>
 #include <BasicSockets.h>
 #include <Utilities/strings.h>
 #ifdef WINDOWS
@@ -216,7 +215,7 @@ int ConnectSocket(Socket *sock, struct addrinfo **addr)
 	return 1;
 }
 
-int SelectConnections(int nfds, fd_set *readset, fd_set *writeset, fd_set *exceptset, struct timeval const *timeout, Socket *sock)
+int SelectConnections(int nfds, fd_set *readset, fd_set *writeset, fd_set *exceptset, struct timeval *timeout, Socket *sock)
 {
 	int connections = select(nfds, readset, writeset, exceptset, timeout);
 	if (connections == SOCKET_ERROR)
@@ -258,5 +257,10 @@ int CloseSocket(Socket *sock)
 		return 0;
 	}
 	return 1;
+}
+
+void CleanUp()
+{
+	WSACleanup();
 }
 #endif
